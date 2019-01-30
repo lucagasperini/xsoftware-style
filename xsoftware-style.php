@@ -14,7 +14,15 @@ if (!class_exists("xs_style_plugin")) :
 class xs_style_plugin
 {
         
-        private $default = array('colors' => array('a' => array('color' => '#000000', 'hover' => '#ffffff', 'focus' => '#ffffff')));
+        private $default = array(
+                'colors' => array(
+                        'a' => array(
+                                'color' => array( 'text' => '#DDDDDD' , 'bg' => ''), 
+                                'hover' => array( 'text' => '#FFFFFF' , 'bg' => ''), 
+                                'focus' => array( 'text' => '#FFFFFF' , 'bg' => ''),
+                        )
+                )
+        );
         
         private $options = NULL;
       
@@ -66,10 +74,12 @@ class xs_style_plugin
                 $options = $this->options;
                 
                 if(isset($input['xs_new_color']['name']) && !empty($input['xs_new_color']['name'])) {
+
                         $name = $input['xs_new_color']['name'];
                         unset($input['xs_new_color']['name']);
                         $options['colors'][$name] = $input['xs_new_color'];
                         unset($input['xs_new_color']);
+
                 }
                 if(isset($input['update']) && !empty($input['update'])) {
                         foreach($input['update'] as $name => $prop) {
@@ -96,15 +106,28 @@ class xs_style_plugin
                 $css = '';
                 
                 foreach($colors as $name => $prop) {
-                        $class = '';
                         foreach($prop as $type => $value) {
-                                if($type == 'color')
-                                        $class .= $name . '{color:' . $value . ' !important}';
+                                $class = '';
+                                $not_empty = FALSE;
+                                
+                                if($type === 'color')
+                                        $class .= $name . '{';
                                 else
-                                        $class .= $name . ':' . $type . '{color:' . $value . ' !important}';
+                                        $class .= $name . ':' . $type . '{';
+                                        
+                                if(!empty($value['text'])) {
+                                        $class .= 'color:' . $value['text'] . ' !important;';
+                                        $not_empty = TRUE;
+                                }
+                                if(!empty($value['bg'])) {
+                                        $class .= 'background-color:' . $value['bg'] . ' !important;';
+                                        $not_empty = TRUE;
+                                }
+                                
+                                $class .= '}';
+                                if($not_empty == TRUE)
+                                        $css .= $class;
                         }
-                        
-                        $css .= $class;
                 }
                 
                 $file_style = fopen($colors_dir.'style.css', 'w') or die('Unable to open file!');
@@ -120,21 +143,34 @@ class xs_style_plugin
                 foreach($colors as $name => $prop) {
                         $data[$name][] = $name;
                         $data[$name][] = xs_framework::create_input( array(
-                                'type' => 'color',
-                                'value' => $prop['color'],
-                                'name' => 'xs_options_style[update]['.$name.'][color]',
+                                'value' => $prop['color']['text'],
+                                'name' => 'xs_options_style[update]['.$name.'][color][text]',
                                 'return' => TRUE
                         ));
                         $data[$name][] = xs_framework::create_input( array(
-                                'type' => 'color',
-                                'value' => $prop['hover'],
-                                'name' => 'xs_options_style[update]['.$name.'][hover]',
+                                'value' => $prop['hover']['text'],
+                                'name' => 'xs_options_style[update]['.$name.'][hover][text]',
                                 'return' => TRUE
                         ));
                         $data[$name][] = xs_framework::create_input( array(
-                                'type' => 'color',
-                                'value' => $prop['focus'],
-                                'name' => 'xs_options_style[update]['.$name.'][focus]',
+                                'value' => $prop['focus']['text'],
+                                'name' => 'xs_options_style[update]['.$name.'][focus][text]',
+                                'return' => TRUE
+                        ));
+                        
+                        $data[$name][] = xs_framework::create_input( array(
+                                'value' => $prop['color']['bg'],
+                                'name' => 'xs_options_style[update]['.$name.'][color][bg]',
+                                'return' => TRUE
+                        ));
+                        $data[$name][] = xs_framework::create_input( array(
+                                'value' => $prop['hover']['bg'],
+                                'name' => 'xs_options_style[update]['.$name.'][hover][bg]',
+                                'return' => TRUE
+                        ));
+                        $data[$name][] = xs_framework::create_input( array(
+                                'value' => $prop['focus']['bg'],
+                                'name' => 'xs_options_style[update]['.$name.'][focus][bg]',
                                 'return' => TRUE
                         ));
                 }
@@ -144,24 +180,33 @@ class xs_style_plugin
                         'return' => TRUE
                 ));
                 $new[] = xs_framework::create_input( array(
-                        'type' => 'color',
-                        'name' => 'xs_options_style[xs_new_color][color]',
+                        'name' => 'xs_options_style[xs_new_color][color][text]',
                         'return' => TRUE
                 ));
                 $new[] = xs_framework::create_input( array(
-                        'type' => 'color',
-                        'name' => 'xs_options_style[xs_new_color][hover]',
+                        'name' => 'xs_options_style[xs_new_color][hover][text]',
                         'return' => TRUE
                 ));
                 $new[] = xs_framework::create_input( array(
-                        'type' => 'color',
-                        'name' => 'xs_options_style[xs_new_color][focus]',
+                        'name' => 'xs_options_style[xs_new_color][focus][text]',
                         'return' => TRUE
                 ));
-                
+                $new[] = xs_framework::create_input( array(
+                        'name' => 'xs_options_style[xs_new_color][color][bg]',
+                        'return' => TRUE
+                ));
+                $new[] = xs_framework::create_input( array(
+                        'name' => 'xs_options_style[xs_new_color][hover][bg]',
+                        'return' => TRUE
+                ));
+                $new[] = xs_framework::create_input( array(
+                        'name' => 'xs_options_style[xs_new_color][focus][bg]',
+                        'return' => TRUE
+                ));
+               
                 $data[] = $new;
-                
-                xs_framework::create_table(array('headers' => array('Name', 'Color', 'Hover', 'Focus'), 'data' => $data));
+                $headers = array('Name', 'Color', 'Hover', 'Focus', 'Background Color', 'Background Hover', 'Background Focus');
+                xs_framework::create_table(array('headers' => $headers, 'data' => $data));
                 
                 xs_framework::create_button( array(
                         'class' => 'button-primary',
