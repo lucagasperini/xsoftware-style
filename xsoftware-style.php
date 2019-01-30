@@ -123,6 +123,10 @@ class xs_style_plugin
                                         $class .= 'background-color:' . $value['bg'] . ' !important;';
                                         $not_empty = TRUE;
                                 }
+                                if(!empty($value['bord'])) {
+                                        $class .= 'border-color:' . $value['bord'] . ' !important;';
+                                        $not_empty = TRUE;
+                                }
                                 
                                 $class .= '}';
                                 if($not_empty == TRUE)
@@ -173,6 +177,22 @@ class xs_style_plugin
                                 'name' => 'xs_options_style[update]['.$name.'][focus][bg]',
                                 'return' => TRUE
                         ));
+                        
+                        $data[$name][] = xs_framework::create_input( array(
+                                'value' => $prop['color']['bord'],
+                                'name' => 'xs_options_style[update]['.$name.'][color][bord]',
+                                'return' => TRUE
+                        ));
+                        $data[$name][] = xs_framework::create_input( array(
+                                'value' => $prop['hover']['bord'],
+                                'name' => 'xs_options_style[update]['.$name.'][hover][bord]',
+                                'return' => TRUE
+                        ));
+                        $data[$name][] = xs_framework::create_input( array(
+                                'value' => $prop['focus']['bord'],
+                                'name' => 'xs_options_style[update]['.$name.'][focus][bord]',
+                                'return' => TRUE
+                        ));
                 }
                 
                 $new[] = xs_framework::create_input( array(
@@ -203,9 +223,33 @@ class xs_style_plugin
                         'name' => 'xs_options_style[xs_new_color][focus][bg]',
                         'return' => TRUE
                 ));
+                
+                $new[] = xs_framework::create_input( array(
+                        'name' => 'xs_options_style[xs_new_color][color][bord]',
+                        'return' => TRUE
+                ));
+                $new[] = xs_framework::create_input( array(
+                        'name' => 'xs_options_style[xs_new_color][hover][bord]',
+                        'return' => TRUE
+                ));
+                $new[] = xs_framework::create_input( array(
+                        'name' => 'xs_options_style[xs_new_color][focus][bord]',
+                        'return' => TRUE
+                ));
                
                 $data[] = $new;
-                $headers = array('Name', 'Color', 'Hover', 'Focus', 'Background Color', 'Background Hover', 'Background Focus');
+                $headers = array(
+                        'Name', 
+                        'Color', 
+                        'Hover', 
+                        'Focus', 
+                        'Background Color', 
+                        'Background Hover', 
+                        'Background Focus', 
+                        'Border Color',
+                        'Border Hover',
+                        'Border Focus'
+                );
                 xs_framework::create_table(array('headers' => $headers, 'data' => $data));
                 
                 xs_framework::create_button( array(
