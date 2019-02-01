@@ -190,11 +190,15 @@ class xs_style_plugin
                         mkdir($colors_dir, 0774);
                 
                 $css = '';
-                
                 foreach($colors as $name => $value) {
-                        $class = '.'.$name.'{color:'.$value.';}';
+                        $class = '';
+                        $class .= '.'.$name.'{color:'.$value.';}';
+                        $class .= '.'.$name.'_bg{background-color:'.$value.';}';
+                        $class .= '.'.$name.'_bord{border-color:'.$value.';}';
                         $css .= $class;
                 }
+                
+                $css .= 'body{background-color:'.$colors['xs_body'].';color:'.$colors['xs_text'].'}';
                 
                 $file_style = fopen($colors_dir.'xsoftware.css', 'w') or die('Unable to open file!');
                 fwrite($file_style, $css);
