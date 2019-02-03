@@ -15,12 +15,6 @@ class xs_style_plugin
 {
         
         private $default = array(
-                'colors' => array(
-                        'xs_primary' => '#FFB342',
-                        'xs_secondary' => '#999999',
-                        'xs_body' => '#222222',
-                        'xs_text' => '#DDDDDD',
-                ),
                 'override' => array(
                         'a' => array(
                                 'color' => array( 'text' => '#DDDDDD' , 'bg' => '', 'bord' => ''), 
@@ -114,7 +108,6 @@ class xs_style_plugin
                         
                         $return['colors'] = $options;
                 }
-                
                 return $return;
         }
         
@@ -123,62 +116,15 @@ class xs_style_plugin
                 $tab = xs_framework::create_tabs( array(
                         'href' => '?page=xsoftware_style',
                         'tabs' => array(
-                                'colors' => 'Colors',
-                                'colors_override' => 'Colors Override'
+                                'colors' => 'Colors Override',
                         ),
                         'home' => 'colors'
                 ));
                 
                 if($tab === 'colors')
-                        $this->show_colors();
-                else if($tab === 'colors_override')
                         $this->show_colors_override();
         }
-        
-        function generate_override_css($colors) 
-        {
-                $xs_dir = WP_CONTENT_DIR . '/xsoftware/';
-                if(is_dir($xs_dir) === FALSE)
-                        mkdir($xs_dir, 0774);
-                $colors_dir = $xs_dir . 'colors/';
-                if(is_dir($colors_dir) === FALSE)
-                        mkdir($colors_dir, 0774);
-                
-                $css = '';
-                
-                foreach($colors as $name => $prop) {
-                        foreach($prop as $type => $value) {
-                                $class = '';
-                                $not_empty = FALSE;
-                                
-                                if($type === 'color')
-                                        $class .= $name . '{';
-                                else
-                                        $class .= $name . ':' . $type . '{';
-                                        
-                                if(!empty($value['text'])) {
-                                        $class .= 'color:' . $value['text'] . ' !important;';
-                                        $not_empty = TRUE;
-                                }
-                                if(!empty($value['bg'])) {
-                                        $class .= 'background-color:' . $value['bg'] . ' !important;';
-                                        $not_empty = TRUE;
-                                }
-                                if(!empty($value['bord'])) {
-                                        $class .= 'border-color:' . $value['bord'] . ' !important;';
-                                        $not_empty = TRUE;
-                                }
-                                
-                                $class .= '}';
-                                if($not_empty == TRUE)
-                                        $css .= $class;
-                        }
-                }
-                
-                $file_style = fopen($colors_dir.'override.css', 'w') or die('Unable to open file!');
-                fwrite($file_style, $css);
-                fclose($file_style);
-        }
+
         
         function generate_css($colors)
         {
@@ -207,67 +153,6 @@ class xs_style_plugin
         
         function show_colors()
         {
-                $colors = $this->options['colors'];
-                
-                $settings = array( 
-                        'type' => 'color',
-                        'name' => 'xs_options_style[colors][xs_primary]', 
-                        'value' => $colors['xs_primary']
-                );
-                
-                add_settings_field(
-                        $settings['name'], 
-                        'Primary Color:',
-                        'xs_framework::create_input',
-                        'style',
-                        'style_section',
-                        $settings
-                );
-                
-                $settings = array( 
-                        'type' => 'color',
-                        'name' => 'xs_options_style[colors][xs_secondary]', 
-                        'value' => $colors['xs_secondary']
-                );
-                
-                add_settings_field(
-                        $settings['name'], 
-                        'Secondary Color:',
-                        'xs_framework::create_input',
-                        'style',
-                        'style_section',
-                        $settings
-                );
-                
-                $settings = array( 
-                        'type' => 'color',
-                        'name' => 'xs_options_style[colors][xs_body]', 
-                        'value' => $colors['xs_body']
-                );
-                
-                add_settings_field(
-                        $settings['name'], 
-                        'Body Color:',
-                        'xs_framework::create_input',
-                        'style',
-                        'style_section',
-                        $settings
-                );
-                
-                $settings = array( 
-                        'type' => 'color',
-                        'name' => 'xs_options_style[colors][xs_text]', 
-                        'value' => $colors['xs_text']
-                );
-                
-                add_settings_field(
-                        $settings['name'], 
-                        'Text Color:',
-                        'xs_framework::create_input',
-                        'style',
-                        'style_section',
-                        $settings
-                );
         }
         
         function show_colors_override()
