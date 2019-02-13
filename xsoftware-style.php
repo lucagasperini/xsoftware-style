@@ -164,93 +164,74 @@ class xs_style_plugin
                         $data[$name][] = $name;
                         $data[$name][] = xs_framework::create_input( array(
                                 'value' => $prop['color']['text'],
-                                'name' => 'xs_options_style[override][update]['.$name.'][color][text]',
-                                'return' => TRUE
+                                'name' => 'xs_options_style[override][update]['.$name.'][color][text]'
                         ));
                         $data[$name][] = xs_framework::create_input( array(
                                 'value' => $prop['hover']['text'],
-                                'name' => 'xs_options_style[override][update]['.$name.'][hover][text]',
-                                'return' => TRUE
+                                'name' => 'xs_options_style[override][update]['.$name.'][hover][text]'
                         ));
                         $data[$name][] = xs_framework::create_input( array(
                                 'value' => $prop['focus']['text'],
-                                'name' => 'xs_options_style[override][update]['.$name.'][focus][text]',
-                                'return' => TRUE
+                                'name' => 'xs_options_style[override][update]['.$name.'][focus][text]'
                         ));
                         
                         $data[$name][] = xs_framework::create_input( array(
                                 'value' => $prop['color']['bg'],
-                                'name' => 'xs_options_style[override][update]['.$name.'][color][bg]',
-                                'return' => TRUE
+                                'name' => 'xs_options_style[override][update]['.$name.'][color][bg]'
                         ));
                         $data[$name][] = xs_framework::create_input( array(
                                 'value' => $prop['hover']['bg'],
-                                'name' => 'xs_options_style[override][update]['.$name.'][hover][bg]',
-                                'return' => TRUE
+                                'name' => 'xs_options_style[override][update]['.$name.'][hover][bg]'
                         ));
                         $data[$name][] = xs_framework::create_input( array(
                                 'value' => $prop['focus']['bg'],
-                                'name' => 'xs_options_style[override][update]['.$name.'][focus][bg]',
-                                'return' => TRUE
+                                'name' => 'xs_options_style[override][update]['.$name.'][focus][bg]'
                         ));
                         
                         $data[$name][] = xs_framework::create_input( array(
                                 'value' => $prop['color']['bord'],
-                                'name' => 'xs_options_style[override][update]['.$name.'][color][bord]',
-                                'return' => TRUE
+                                'name' => 'xs_options_style[override][update]['.$name.'][color][bord]'
                         ));
                         $data[$name][] = xs_framework::create_input( array(
                                 'value' => $prop['hover']['bord'],
-                                'name' => 'xs_options_style[override][update]['.$name.'][hover][bord]',
-                                'return' => TRUE
+                                'name' => 'xs_options_style[override][update]['.$name.'][hover][bord]'
                         ));
                         $data[$name][] = xs_framework::create_input( array(
                                 'value' => $prop['focus']['bord'],
-                                'name' => 'xs_options_style[override][update]['.$name.'][focus][bord]',
-                                'return' => TRUE
+                                'name' => 'xs_options_style[override][update]['.$name.'][focus][bord]'
                         ));
                 }
                 
                 $new[] = xs_framework::create_input( array(
-                        'name' => 'xs_options_style[override][new][name]',
-                        'return' => TRUE
+                        'name' => 'xs_options_style[override][new][name]'
                 ));
                 $new[] = xs_framework::create_input( array(
-                        'name' => 'xs_options_style[override][new][color][text]',
-                        'return' => TRUE
+                        'name' => 'xs_options_style[override][new][color][text]'
                 ));
                 $new[] = xs_framework::create_input( array(
-                        'name' => 'xs_options_style[override][new][hover][text]',
-                        'return' => TRUE
+                        'name' => 'xs_options_style[override][new][hover][text]'
                 ));
                 $new[] = xs_framework::create_input( array(
-                        'name' => 'xs_options_style[override][new][focus][text]',
-                        'return' => TRUE
+                        'name' => 'xs_options_style[override][new][focus][text]'
                 ));
                 $new[] = xs_framework::create_input( array(
-                        'name' => 'xs_options_style[override][new][color][bg]',
-                        'return' => TRUE
+                        'name' => 'xs_options_style[override][new][color][bg]'
                 ));
                 $new[] = xs_framework::create_input( array(
-                        'name' => 'xs_options_style[override][new][hover][bg]',
-                        'return' => TRUE
+                        'name' => 'xs_options_style[override][new][hover][bg]'
                 ));
                 $new[] = xs_framework::create_input( array(
-                        'name' => 'xs_options_style[override][new][focus][bg]',
-                        'return' => TRUE
+                        'name' => 'xs_options_style[override][new][focus][bg]'
                 ));
                 
                 $new[] = xs_framework::create_input( array(
-                        'name' => 'xs_options_style[override][new][color][bord]',
-                        'return' => TRUE
+                        'name' => 'xs_options_style[override][new][color][bord]'
                 ));
                 $new[] = xs_framework::create_input( array(
-                        'name' => 'xs_options_style[override][new][hover][bord]',
-                        'return' => TRUE
+                        'name' => 'xs_options_style[override][new][hover][bord]'
                 ));
                 $new[] = xs_framework::create_input( array(
-                        'name' => 'xs_options_style[override][new][focus][bord]',
-                        'return' => TRUE
+                        'name' => 'xs_options_style[override][new][focus][bord]'
                 ));
                
                 $data[] = $new;
