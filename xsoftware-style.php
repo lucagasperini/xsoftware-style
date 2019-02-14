@@ -252,7 +252,8 @@ class xs_style_plugin
                 xs_framework::create_button( array(
                         'class' => 'button-primary',
                         'name' => 'xs_options_style[xs_generate_css]',
-                        'text' => 'Generate CSS'
+                        'text' => 'Generate CSS',
+                        'echo' => TRUE
                 ));
         }
         
