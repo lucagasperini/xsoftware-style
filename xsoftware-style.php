@@ -247,7 +247,11 @@ class xs_style_plugin
                         'Border Hover',
                         'Border Focus'
                 );
-                xs_framework::create_table(array('headers' => $headers, 'data' => $data));
+                xs_framework::create_table(array(
+                        'class' => 'xs_admin_table',
+                        'headers' => $headers, 
+                        'data' => $data
+                ));
                 
                 xs_framework::create_button( array(
                         'class' => 'button-primary',
